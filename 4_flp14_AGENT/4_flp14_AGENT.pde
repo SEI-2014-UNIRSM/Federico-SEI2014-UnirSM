@@ -1,4 +1,3 @@
-
 /*  
 Basato su: P_2_2_4_01 Generative Gestaltung — Segue licenza originale.
 Algoritmo modificato per esercizio durante il corso 
