@@ -1,5 +1,8 @@
-/*sketch 10_print modificato a scopo didattico*/
-
+/*
+Basato su: 10_print — Segue licenza originale.
+Algoritmo modificato per esercizio durante il corso 
+SEI 2014 @ UnirSM — Più info http://goo.gl/59obuO 
+*/
 
 int w = 16;
 int h = 16;
