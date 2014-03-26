@@ -1,6 +1,8 @@
 
-
-/*   ---------    sketch modificato a scopo di studio -----------
+/*  
+Basato su: P_2_2_4_01 Generative Gestaltung — Segue licenza originale.
+Algoritmo modificato per esercizio durante il corso 
+SEI 2014 @ UnirSM — Più info http://goo.gl/59obuO 
 
 La modifica introdotta preveder un fascio di linea che partono dalla posizione
 del tuo mouse e che cambiano continuamente colore.
