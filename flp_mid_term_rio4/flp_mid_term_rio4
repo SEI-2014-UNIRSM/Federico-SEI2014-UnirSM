@@ -1,0 +1,210 @@
+/* Drawing tool for movie poster and opening credits
+ © Federico Lo Porto for the course SEI2014 @ UnirSM
+ Didactic purpose, MIT License, March 2014, San Marino
+  
+ * KEYS
+ * g                   : save png
+ * r                   : start recording pdf
+ * e                   : stop pdf recordingr
+ *a                    : save frame
+ 
+  */
+
+import processing.pdf.*;
+import java.util.Calendar;
+import controlP5.*;
+
+ControlP5 interfaccia;
+
+boolean recordPDF, saveF = false;
+ArrayList<Circle> circles; 
+PShape piuma;
+PImage sfondo;
+PFont myFont;
+float Newx=0;
+float Newy=0;
+int conta=0;
+float dimensione = 50;
+int rand=2;
+int max=500;
+
+void setup() {
+  noCursor();
+  frameRate(30);
+
+  // sfondo=loadImage("rio.jpg");
+  piuma=loadShape("piuma_1.svg");
+  //size(displayWidth,displayHeight);
+  size(1280, 720, OPENGL);
+  // Create an empty array list called circles that stores circle objects.
+  circles = new ArrayList<Circle>();
+  // background(255);
+  //  image(sfondo, 0, 0);
+  // myFont = loadFont("Intro.vlw");
+  myFont = createFont("Intro", 20);
+  textFont(myFont);
+  textAlign(CENTER, CENTER);
+
+
+  interfaccia = new ControlP5(this);
+
+  // create a group for all the gui element called ADMIN
+  Group ADMIN = interfaccia.addGroup("ADMIN")
+    .setPosition(10, 20)
+      .setWidth(200)
+        .setBackgroundHeight(70)
+          .setBackgroundColor(color(150))
+            ;
+
+  // create a slider for the TriangleMinSize parameter
+  // name, minValue, maxValue, defaultValue, x, y, width, height
+  interfaccia.addSlider("dimensione", 1, 500, 100, 10, 10, 100, 14)
+    .setGroup(ADMIN)
+      ;
+
+  interfaccia.addSlider("max", 1, 100, 10, 10, 25, 100, 14)
+    .setGroup(ADMIN)
+      ;
+  interfaccia.addSlider("rand", 1, 10, 2, 10, 40, 100, 14)
+    .setGroup(ADMIN)
+      ;
+  // create a toggle button to control "delete screen" or not
+  interfaccia.addToggle("cancella")
+       .setPosition(10,55)
+    .setSize(14, 14)
+      .setGroup(ADMIN)
+        ;
+
+}
+
+
+
+
+void draw() {
+  //save frame for animation
+  if (saveF) {
+    saveFrame("Animation/anim-####.tga");
+    println(frameCount);
+  }
+  background(255);
+  //image(sfondo, 0, 0);
+
+
+  // Go through the array and call functions (display and grow) for each object.
+  int quantidisegnare = circles.size();
+  if (quantidisegnare >= max+1) quantidisegnare = max;
+
+  for (int i = 0; i<quantidisegnare; i++) {
+    Circle c = circles.get(i);
+    c.display();
+  }
+
+  if (mousePressed) {
+
+
+    for (int i = circles.size()-1;i>0;i--) {
+      // shift the array by one to free place zero for next point to record
+      circles.get(i).copy(circles.get(i-1));
+    }
+
+    // THE RECORDER OF CURRENT POINT
+    // add the current Point to the ArrayList at position 0
+    circles.add(0, new Circle());
+
+
+    // Print the number of objects in the array list
+    println(circles.size());
+  }
+
+
+
+  //text("NEI MIGLIORI CINEMA DI SAN MARINO", width/2, height -60);
+}
+
+
+
+
+
+// When the mouse is pressed add a new circle object to the array 'circles'
+
+//void mousePressed() {
+//conta=conta+1;
+//}
+
+// Create a class called circle
+class Circle {
+  int x, y;
+  float t =1;
+  int previousX, previousY;
+  float size;
+  // Constructor
+  // This runs when you create the object which is why…
+  //…you need to set x & y to the mouse position and the size here…
+  // and not in your functions.
+  Circle() {
+    // set x and y to mouseX and mouseY respectively.
+    x = mouseX;
+    y = mouseY;
+  }
+
+  void copy(Circle toCopy) { // tool to duplicate values from another Point, USED to shift the array by one
+    x = toCopy.x;
+    y = toCopy.y;
+    // d = dist(x, y, xp, yp);
+    //   isEndPoint = toCopy.isEndPoint;
+  } // copy
+
+    // Function that, when called, displays the object
+  void display() {
+    t+=.01;
+    shapeMode(CENTER); 
+    //shape(piuma, x, y, dimensione, dimensione);
+    // if (conta>4)
+    //{
+    shape(piuma, x+Newx, y+Newy, dimensione, dimensione);
+    Newx = noise(t)*30+random(1, rand);
+    Newy = noise(t+1000)*30+random(1, rand);
+    // noise(Newx, Newy);
+    //}
+  }
+}
+
+
+
+void keyReleased() {
+  if (key == 's' || key == 'S') saveFrame(timestamp()+"_##.png");
+  if (key == DELETE || key == BACKSPACE) image(sfondo, 0, 0);
+
+
+  // ------ pdf export ------
+  // press 'r' to start pdf recording and 'e' to stop it
+  // ONLY by pressing 'e' the pdf is saved to disk!
+  if (key =='r' || key =='R') {
+    if (recordPDF == false) {
+      beginRecord(PDF, timestamp()+".pdf");
+      println("recording started");
+      recordPDF = true;
+    }
+  } 
+  else if (key == 'e' || key =='E') {
+    if (recordPDF) {
+      println("recording stopped");
+      endRecord();
+      recordPDF = false;
+      background(255);
+    }
+  }
+}
+
+
+// timestamp
+String timestamp() {
+  Calendar now = Calendar.getInstance();
+  return String.format("%1$ty%1$tm%1$td_%1$tH%1$tM%1$tS", now);
+}
+
+void keyPressed() {
+  if (key =='a' || key =='A') {
+    saveF = !saveF;
+  }
+}
