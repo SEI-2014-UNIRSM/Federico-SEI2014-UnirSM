@@ -3,8 +3,8 @@ Basato su: P_2_2_4_01 Generative Gestaltung — Segue licenza originale.
 Algoritmo modificato per esercizio durante il corso 
 SEI 2014 @ UnirSM — Più info http://goo.gl/59obuO 
 
-La modifica introdotta preveder un fascio di linea che partono dalla posizione
-del tuo mouse e che cambiano continuamente colore.
+La modifica introdotta prevede un fascio di linea che partono dal centro dell'ellisse che si sta generando 
+in quel momento posizione ed arrivano alla posizione del mouse, in più cambiano continuamente colore.
 
 */
 
@@ -101,12 +101,15 @@ void draw() {
   // draw them
   for (int i=0 ; i < currentCount; i++) {
    
+   //variabili per generare i colori random delle linee
+   
      float color1=random(0,255);
     float color2=random(0,255);
     float color3=random(0,255);
     stroke(color1,color2,color3,80);
 
-      line(x[i],y[i],mouseX,mouseY);
+      line(x[i],y[i],mouseX,mouseY); // il punto di inizio della mia linea sono le cordinate dell'ellisse che si 
+      //sta generando in quel momento, il punto di fine è la posizione del mouse
        fill(50);
       ellipse(x[i],y[i], r[i]*2, r[i]*2);
     
