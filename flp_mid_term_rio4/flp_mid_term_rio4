@@ -1,7 +1,12 @@
 /* Drawing tool for movie poster and opening credits
  © Federico Lo Porto for the course SEI2014 @ UnirSM
  Didactic purpose, MIT License, March 2014, San Marino
-  
+ 
+Pennello ispirato al film d'animazione RIO. 
+Il pennello traccia delle piume che ricordano il protagonista del film. 
+Le piume hanno un movimento sinuoso come se fossero spinte dal vento.  
+
+
  * KEYS
  * g                   : save png
  * r                   : start recording pdf
@@ -26,7 +31,7 @@ float Newy=0;
 int conta=0;
 float dimensione = 50;
 int rand=2;
-int max=500;
+int max=20;
 
 void setup() {
   noCursor();
@@ -58,7 +63,7 @@ void setup() {
 
   // create a slider for the TriangleMinSize parameter
   // name, minValue, maxValue, defaultValue, x, y, width, height
-  interfaccia.addSlider("dimensione", 1, 500, 100, 10, 10, 100, 14)
+  interfaccia.addSlider("dimensione", 1, 150, 50, 10, 10, 100, 14)
     .setGroup(ADMIN)
       ;
 
