@@ -108,8 +108,9 @@ void draw() {
     float color3=random(0,255);
     stroke(color1,color2,color3,80);
 
-      line(x[i],y[i],mouseX,mouseY); // il punto di inizio della mia linea sono le cordinate dell'ellisse che si 
-      //sta generando in quel momento, il punto di fine è la posizione del mouse
+      line(x[i],y[i],mouseX,mouseY); // il punto di inizio della mia linea 
+      //sono le cordinate dell'ellisse che si sta generando in quel momento,
+      //il punto di fine è la posizione del mouse
        fill(50);
       ellipse(x[i],y[i], r[i]*2, r[i]*2);
     
