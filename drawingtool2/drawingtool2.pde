@@ -1,7 +1,7 @@
 /*
 Le modifiche apportate tracciano una curva che segue il mouse e che si muove anche sull'asse Z
 
-Basato su: P_2_3_1_02 Generative Gestaltung — Segue licenza originale.
+Basato su: P_2_2_3_02 Generative Gestaltung — Segue licenza originale.
 Algoritmo modificato per esercizio durante il corso
 SEI 2014 @ UnirSM — Più info http://goo.gl/59obuO
 
